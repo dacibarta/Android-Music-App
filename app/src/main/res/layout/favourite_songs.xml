@@ -19,17 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="VisualLintTextFieldSize" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchListView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/searchButton2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/searchBar2"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar2" />
-
     <Button
         android:id="@+id/searchButton2"
         android:layout_width="65dp"
@@ -40,5 +29,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/searchBar2"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favSongsRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/searchButton2"
+        app:layout_constraintStart_toStartOf="@+id/searchBar2"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

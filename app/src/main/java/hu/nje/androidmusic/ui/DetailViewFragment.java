@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import hu.nje.androidmusic.database.AppDatabase;
+import hu.nje.androidmusic.database.FavoriteSong;
+import hu.nje.androidmusic.database.FavoriteSongDao;
 
 
 import hu.nje.androidmusic.R;
@@ -27,6 +30,9 @@ public class DetailViewFragment extends Fragment{
     private String title;
     private String artist;
     private String image;
+    private FavoriteSongDao favoriteDao;
+    private FavoriteSong existingFavorite;
+    private String trackId;
     private boolean isPlaying = false;
 
     public DetailViewFragment() {
@@ -47,6 +53,7 @@ public class DetailViewFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null) {
+            trackId = getArguments().getString("trackId");
             title = getArguments().getString("title");
             artist = getArguments().getString("artist");
             audioUrl = getArguments().getString("audioUrl");
@@ -94,9 +101,22 @@ public class DetailViewFragment extends Fragment{
             }
         });
 
+        favoriteDao = AppDatabase.getInstance(requireContext()).favoriteSongDao();
+        existingFavorite = favoriteDao.findByTrackId(trackId);
+
         Button favoriteButton = view.findViewById(R.id.favorites_button);
         favoriteButton.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Hozzáadva a kedvencekhez", Toast.LENGTH_SHORT).show();
+            if (existingFavorite == null) {
+                FavoriteSong song = new FavoriteSong(trackId, title, artist, audioUrl);
+                favoriteDao.insert(song);
+                existingFavorite = song;
+                Toast.makeText(getContext(), "Hozzáadva a kedvencekhez", Toast.LENGTH_SHORT).show();
+            }else {
+                favoriteDao.delete(existingFavorite);
+                existingFavorite = null;
+
+                Toast.makeText(getContext(), "Eltávolítva a kedvencekből", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

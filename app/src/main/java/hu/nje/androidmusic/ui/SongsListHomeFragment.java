@@ -27,7 +27,7 @@ public class SongsListHomeFragment extends Fragment {
 
     private SongsViewModel viewModel;
     private SongsAdapter adapter;
-    private ProgressBar progressBar;
+
 
     public SongsListHomeFragment() {
 
@@ -46,7 +46,6 @@ public class SongsListHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = view.findViewById(R.id.searchListView);
-        //progressBar = view.findViewById(R.id.progressBarSongs); // add this to your XML
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new SongsAdapter(new ArrayList<>(), this::onSongClicked);
@@ -57,8 +56,6 @@ public class SongsListHomeFragment extends Fragment {
         viewModel.getTracksLiveData().observe(getViewLifecycleOwner(), tracks ->
                 adapter.updateData(tracks));
 
-        /*viewModel.getLoadingLiveData().observe(getViewLifecycleOwner(), loading ->
-                progressBar.setVisibility(loading != null && loading ? View.VISIBLE : View.GONE));*/
 
         viewModel.getErrorLiveData().observe(getViewLifecycleOwner(), error -> {
             if (error != null) {
@@ -83,6 +80,7 @@ public class SongsListHomeFragment extends Fragment {
     }
     private void onSongClicked(JamendoTrack track) {
         Bundle bundle = new Bundle();
+        bundle.putString("trackId", track.getId());
         bundle.putString("title", track.getName());
         bundle.putString("artist", track.getArtist_name());
         bundle.putString("audioUrl", track.getAudio());
