@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/songsListHomeFragment"
+    >
+
+    <fragment
+        android:id="@+id/songsListHomeFragment"
+        android:name="hu.nje.androidmusic.ui.SongsListHomeFragment"
+        android:label="Zenék"
+        tools:layout="@layout/songs_list">
+
+        <action
+            android:id="@+id/action_songsListHomeFragment_to_detailViewFragment"
+            app:destination="@id/detailViewFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailViewFragment"
+        android:name="hu.nje.androidmusic.ui.DetailViewFragment"
+        android:label="Lejátszás"
+        tools:layout="@layout/detail_view" />
+
+
+    <fragment
+        android:id="@+id/favsonglistFragment"
+        android:name="hu.nje.androidmusic.ui.FavSongsListFragment"
+        android:label="Kedvenc zenék"
+        tools:layout="@layout/favourite_songs" />
+
+</navigation>
